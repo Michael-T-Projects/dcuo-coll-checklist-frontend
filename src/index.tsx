@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Login } from './Pages/Login/Login';
 import { Signup } from './Pages/Signup/Signup';
+import './index.css';
 
 ReactDOM.render(
   <BrowserRouter>
