@@ -12,7 +12,7 @@ pipeline {
     stage('Deploy') {
       steps {
         sh 'sudo rm -rf /var/www/dcuo-collchecklist.com/html'
-        sh 'sudo cp -r $WORKSPACE/build/ /var/www/dcuo-collchecklist/html/'
+        sh 'sudo cp -r $WORKSPACE/build/ /var/www/dcuo-collchecklist.com/html/'
       }
     }
   }
