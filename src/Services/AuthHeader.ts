@@ -1,7 +1,7 @@
 import AuthorizationHeader from '../Models/AuthorizationHeader';
 
 export default function authHeader(): AuthorizationHeader | null {
-  const userJson = localStorage.getItem('user');
+  const userJson = sessionStorage.getItem('user');
 
   if (!userJson) {
     return null;

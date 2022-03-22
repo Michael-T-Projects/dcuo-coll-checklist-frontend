@@ -15,7 +15,7 @@ class AuthService {
       })
       .then((response: AxiosResponse) => {
         if (response.data.token && response.data.username && response.data.email) {
-          localStorage.setItem('user', JSON.stringify(response.data));
+          sessionStorage.setItem('user', JSON.stringify(response.data));
         }
 
         return response.data;
@@ -23,7 +23,7 @@ class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
   }
 
   register(username: string, email: string, password: string): Promise<unknown> {
@@ -35,7 +35,7 @@ class AuthService {
   }
 
   getCurrentUser(): User | null {
-    const userJson = localStorage.getItem('user');
+    const userJson = sessionStorage.getItem('user');
 
     if (!userJson) {
       return null;
