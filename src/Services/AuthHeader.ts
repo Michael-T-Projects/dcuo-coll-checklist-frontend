@@ -1,10 +1,10 @@
-import AuthorizationHeader from '../Models/AuthorizationHeader';
+import { AxiosRequestHeaders } from 'axios';
 
-export default function authHeader(): AuthorizationHeader | null {
+export default function authHeader(): AxiosRequestHeaders | undefined {
   const userJson = sessionStorage.getItem('user');
 
   if (!userJson) {
-    return null;
+    return undefined;
   }
 
   return {

@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import User from '../Models/User';
+import authHeader from './AuthHeader';
 
 const API_URL =
   process.env.NODE_ENV === 'production'
@@ -32,6 +33,10 @@ class AuthService {
       email,
       password,
     });
+  }
+
+  authMe(): Promise<unknown> {
+    return axios.get(API_URL + '/auth/me', { headers: authHeader() });
   }
 
   getCurrentUser(): User | null {
