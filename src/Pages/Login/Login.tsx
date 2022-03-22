@@ -30,16 +30,16 @@ export const Login = () => {
           if (error.response && error.response.status) {
             switch (error.response.status) {
               case 401:
-                setToastMessage('Invalid username or password.');
+                setToastMessage('Invalid username or password');
                 setShowToast(true);
                 break;
               default:
-                setToastMessage('An unknown error occurred.');
+                setToastMessage('An unknown error occurred');
                 setShowToast(true);
                 break;
             }
           } else {
-            setToastMessage('An unknown error occurred.');
+            setToastMessage('An unknown error occurred');
             setShowToast(true);
           }
 
@@ -68,7 +68,7 @@ export const Login = () => {
               <FloatingLabel label="Username">
                 <Form.Control
                   type="text"
-                  placeholder="john.doe@example.com"
+                  placeholder="John_Doe"
                   required
                   {...register('username', { required: true, minLength: 2, maxLength: 30 })}
                   isInvalid={!!errors.username}
