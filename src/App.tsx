@@ -7,7 +7,7 @@ export const App = () => {
   return (
     <>
       <Header />
-      <Container>
+      <Container className="mt-4">
         <Outlet />
       </Container>
     </>
