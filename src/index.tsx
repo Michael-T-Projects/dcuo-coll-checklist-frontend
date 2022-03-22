@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { App } from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Login } from './Pages/Login/Login';
 import { Signup } from './Pages/Signup/Signup';
 import './index.css';
@@ -17,26 +17,34 @@ const logOut = () => {
 
 const Wrapper = () => {
   const [user, setUser] = useState<User | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const currentUser = AuthService.getCurrentUser();
 
     if (currentUser) {
-      AuthService.authMe().then(({ data }: any) => {
-        data.token = currentUser.token;
-        setUser(data);
-        sessionStorage.setItem('user', JSON.stringify(data));
-      });
+      AuthService.authMe()
+        .then(({ data }: any) => {
+          data.token = currentUser.token;
+          setUser(data);
+          sessionStorage.setItem('user', JSON.stringify(data));
+        })
+        .then(() => {
+          setIsLoading(false);
+        });
+    } else {
+      setIsLoading(false);
     }
   }, []);
 
-  return (
+  return isLoading ? (
+    <></>
+  ) : (
     <>
       <Routes>
-        <Route path="/" element={<App />}>
-          <Route path="login" element={<Login />} />
-          <Route path="signup" element={<Signup />} />
-        </Route>
+        <Route path="/" element={<App />} />
+        <Route path="login" element={user ? <Navigate to="/" /> : <Login />} />
+        <Route path="signup" element={user ? <Navigate to="/" /> : <Signup />} />
       </Routes>
       <AuthVerify logOut={logOut} />
     </>
