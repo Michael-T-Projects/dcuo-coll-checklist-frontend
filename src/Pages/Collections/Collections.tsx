@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, FloatingLabel, Form, Pagination, Table } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Category from '../../Models/Category';
 import Collection from '../../Models/Collection';
 import Page from '../../Models/Page';
@@ -120,7 +120,10 @@ export const Collections = () => {
             </thead>
             <tbody>
               {tableEntry.collections?.items.map((collection) => (
-                <tr key={collection.id}>
+                <tr
+                  key={collection.id}
+                  onClick={() => navigate('/collections/' + tableEntry.category.id + '/' + collection.id)}
+                >
                   <td>{collection.name}</td>
                   {tableEntry.hasLocation && <td>{collection.location}</td>}
                   {tableEntry.hasEvent && <td>{collection.event}</td>}
