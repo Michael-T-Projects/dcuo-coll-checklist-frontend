@@ -51,6 +51,29 @@ class CollectionService {
         totalItems: response.data['total_items'],
       }));
   }
+
+  findByNameContainingAndCategoryId(
+    name: string,
+    page: number,
+    size: number,
+    categoryId?: number,
+  ): Promise<Page<Collection>> {
+    return axios
+      .get<any>(API_URL + '/collections', {
+        params: {
+          name,
+          category_id: categoryId,
+          page,
+          size,
+        },
+      })
+      .then((response) => ({
+        items: response.data.items.map((collection: any) => this.mapper.fromApi(collection)),
+        currentPage: response.data['current_page'],
+        totalPages: response.data['total_pages'],
+        totalItems: response.data['total_items'],
+      }));
+  }
 }
 
 class CollectionMappingService {

@@ -11,6 +11,7 @@ import AuthService from './Services/AuthService';
 import User from './Models/User';
 import { Landing } from './Pages/Landing/Landing';
 import { Collections } from './Pages/Collections/Collections';
+import { Search } from './Pages/Search/Search';
 
 const logOut = () => {
   AuthService.logout();
@@ -47,6 +48,7 @@ const Wrapper = () => {
         <Route path="/" element={<App />}>
           <Route path="" element={<Landing />} />
           <Route path="collections" element={<Collections />} />
+          <Route path="search" element={<Search />} />
         </Route>
         <Route path="login" element={user ? <Navigate to="/" /> : <Login />} />
         <Route path="signup" element={user ? <Navigate to="/" /> : <Signup />} />
