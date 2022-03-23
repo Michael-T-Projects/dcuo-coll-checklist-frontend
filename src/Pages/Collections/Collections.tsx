@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Pagination, Table } from 'react-bootstrap';
+import { Button, FloatingLabel, Form, Pagination, Table } from 'react-bootstrap';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import Category from '../../Models/Category';
 import Collection from '../../Models/Collection';
 import Page from '../../Models/Page';
 import CollectionService from '../../Services/CollectionService';
 import './Collections.css';
+
+type Inputs = {
+  searchQuery: string;
+  category: string;
+};
 
 interface TableStructure {
   category: Category;
@@ -17,12 +24,21 @@ interface TableStructure {
 export const Collections = () => {
   const [tableEntries, setTableEntries] = useState<TableStructure[]>([]);
   const [value, setValue] = useState(0);
+  const { register, handleSubmit } = useForm<Inputs>();
+  const navigate = useNavigate();
 
   const useForceUpdate = () => {
     return () => setValue((value) => value + 1);
   };
 
   const forceUpdate = useForceUpdate();
+
+  const onSubmit = (values: Inputs) => {
+    navigate({
+      pathname: '/search',
+      search: '?query=' + values.searchQuery + (values.category !== 'all' ? '&category=' + values.category : ''),
+    });
+  };
 
   const fetchCategory = async (tableEntry: TableStructure, page: number) => {
     const collections = await CollectionService.findByCategoryId(tableEntry.category.id, page, 10);
@@ -62,10 +78,36 @@ export const Collections = () => {
 
   return (
     <>
+      <h1>Search Collections</h1>
+      <Form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <Form.Group>
+          <FloatingLabel label="Search Query">
+            <Form.Control
+              className="mb-3"
+              type="search"
+              placeholder="Search Query"
+              required
+              {...register('searchQuery', { required: true, minLength: 2, maxLength: 30 })}
+            />
+          </FloatingLabel>
+        </Form.Group>
+        <Form.Select className="mb-3" {...register('category')}>
+          <option value="all">All categories</option>
+          {tableEntries.map((tableEntry) => (
+            <option key={tableEntry.category.id} value={tableEntry.category.id}>
+              {tableEntry.category.name}
+            </option>
+          ))}
+        </Form.Select>
+        <Button type="submit" variant="primary" className="w-100">
+          Search
+        </Button>
+      </Form>
+      <hr />
       <h1>Collection Categories</h1>
       {tableEntries.map((tableEntry) => (
         <div key={tableEntry.category.id} className="mb-3">
-          <h1>{tableEntry.category.name}</h1>
+          <h3>{tableEntry.category.name}</h3>
           <Table striped bordered hover>
             <thead>
               <tr>
