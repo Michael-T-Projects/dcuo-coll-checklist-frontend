@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Navbar } from 'react-bootstrap';
+import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import User from '../../Models/User';
 import AuthService from '../../Services/AuthService';
@@ -18,13 +18,38 @@ export const Header = () => {
           DCUO CollChecklist
         </Navbar.Brand>
         <Navbar.Toggle />
-        {currentUser && (
-          <Navbar.Collapse className="justify-content-end">
-            <Navbar.Text>
-              <a href="#">{currentUser.username}</a>
-            </Navbar.Text>
-          </Navbar.Collapse>
-        )}
+        <Navbar.Collapse>
+          <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
+            <Nav.Link as={Link} to="/collections">
+              Collections
+            </Nav.Link>
+          </Nav>
+          {currentUser ? (
+            <>
+              <Navbar.Text className="me-2">
+                <Link to="/progresses">{currentUser.username}</Link>
+              </Navbar.Text>
+              <Button
+                variant="danger"
+                onClick={() => {
+                  AuthService.logout();
+                  window.location.href = '/';
+                }}
+              >
+                Logout
+              </Button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="me-2">
+                <Button variant="light">Login</Button>
+              </Link>
+              <Link to="/signup" className="me-2">
+                <Button variant="outline-light">Sign Up</Button>
+              </Link>
+            </>
+          )}
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );
