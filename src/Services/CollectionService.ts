@@ -35,6 +35,10 @@ class CollectionService {
     return axios.get<Category[]>(API_URL + '/categories').then((response) => response.data);
   }
 
+  findCategoryById(id: number): Promise<Category> {
+    return axios.get<Category>(API_URL + '/categories/' + id).then((response) => response.data);
+  }
+
   findByCategoryId(categoryId: number, page: number, size: number): Promise<Page<Collection>> {
     return axios
       .get<any>(API_URL + '/collections', {

@@ -107,7 +107,9 @@ export const Collections = () => {
       <h1>Collection Categories</h1>
       {tableEntries.map((tableEntry) => (
         <div key={tableEntry.category.id} className="mb-3">
-          <h3>{tableEntry.category.name}</h3>
+          <Link to={'/collections/' + tableEntry.category.id}>
+            <h3>{tableEntry.category.name}</h3>
+          </Link>
           <Table striped bordered hover>
             <thead>
               <tr>
