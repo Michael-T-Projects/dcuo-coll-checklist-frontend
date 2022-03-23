@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table } from 'react-bootstrap';
+import { Pagination, Table } from 'react-bootstrap';
 import Category from '../../Models/Category';
 import Collection from '../../Models/Collection';
 import Page from '../../Models/Page';
@@ -16,6 +16,24 @@ interface TableStructure {
 
 export const Collections = () => {
   const [tableEntries, setTableEntries] = useState<TableStructure[]>([]);
+  const [value, setValue] = useState(0);
+
+  const useForceUpdate = () => {
+    return () => setValue((value) => value + 1);
+  };
+
+  const forceUpdate = useForceUpdate();
+
+  const fetchCategory = async (tableEntry: TableStructure, page: number) => {
+    const collections = await CollectionService.findByCategoryId(tableEntry.category.id, page, 10);
+
+    const currentTableEntries = tableEntries;
+    const foundIndex = currentTableEntries.findIndex((te) => te.category.id === tableEntry.category.id);
+
+    currentTableEntries[foundIndex].collections = collections;
+    setTableEntries(currentTableEntries);
+    forceUpdate();
+  };
 
   const fetchData = async () => {
     try {
@@ -70,6 +88,49 @@ export const Collections = () => {
               ))}
             </tbody>
           </Table>
+          {tableEntry.collections && tableEntry.collections.totalItems !== 0 && (
+            <Pagination>
+              <Pagination.First onClick={() => fetchCategory(tableEntry, 0)} />
+              <Pagination.Prev
+                onClick={() =>
+                  fetchCategory(
+                    tableEntry,
+                    tableEntry.collections
+                      ? tableEntry.collections.currentPage - 1 >= 0
+                        ? tableEntry.collections.currentPage - 1
+                        : 0
+                      : 0,
+                  )
+                }
+              />
+              {[...Array(tableEntry.collections?.totalPages)].map((e, i) => (
+                <Pagination.Item
+                  key={i}
+                  active={tableEntry.collections?.currentPage === i}
+                  onClick={() => fetchCategory(tableEntry, i)}
+                >
+                  {i + 1}
+                </Pagination.Item>
+              ))}
+              <Pagination.Next
+                onClick={() =>
+                  fetchCategory(
+                    tableEntry,
+                    tableEntry.collections
+                      ? tableEntry.collections.currentPage + 1 < tableEntry.collections.totalPages
+                        ? tableEntry.collections.currentPage + 1
+                        : tableEntry.collections.totalPages - 1
+                      : 0,
+                  )
+                }
+              />
+              <Pagination.Last
+                onClick={() =>
+                  fetchCategory(tableEntry, tableEntry.collections ? tableEntry.collections.totalPages - 1 : 0)
+                }
+              />
+            </Pagination>
+          )}
         </div>
       ))}
     </>
