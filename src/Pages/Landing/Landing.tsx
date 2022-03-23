@@ -47,7 +47,10 @@ export const Landing = () => {
             </thead>
             <tbody>
               {collections.items.map((collection) => (
-                <tr key={collection.id} onClick={() => navigate('/collections/' + collection.id)}>
+                <tr
+                  key={collection.id}
+                  onClick={() => navigate('/collections/' + collection.category.id + '/' + collection.id)}
+                >
                   <td>{collection.category.name}</td>
                   <td>{collection.name}</td>
                   <td>{collection.reward}</td>

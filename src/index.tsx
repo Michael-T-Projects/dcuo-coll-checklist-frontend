@@ -10,6 +10,7 @@ import AuthVerify from './Services/AuthVerify';
 import AuthService from './Services/AuthService';
 import User from './Models/User';
 import { Landing } from './Pages/Landing/Landing';
+import { Collections } from './Pages/Collections/Collections';
 
 const logOut = () => {
   AuthService.logout();
@@ -45,6 +46,7 @@ const Wrapper = () => {
       <Routes>
         <Route path="/" element={<App />}>
           <Route path="" element={<Landing />} />
+          <Route path="collections" element={<Collections />} />
         </Route>
         <Route path="login" element={user ? <Navigate to="/" /> : <Login />} />
         <Route path="signup" element={user ? <Navigate to="/" /> : <Signup />} />

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Category from '../Models/Category';
 import Collection from '../Models/Collection';
 import Page from '../Models/Page';
 
@@ -24,9 +25,30 @@ class CollectionService {
       })
       .then((response) => ({
         items: response.data.items.map((collection: any) => this.mapper.fromApi(collection)),
-        currentPage: response.data.current_page,
-        totalPages: response.data.total_pages,
-        totalItems: response.data.total_items,
+        currentPage: response.data['current_page'],
+        totalPages: response.data['total_pages'],
+        totalItems: response.data['total_items'],
+      }));
+  }
+
+  findAllCategories(): Promise<Category[]> {
+    return axios.get<Category[]>(API_URL + '/categories').then((response) => response.data);
+  }
+
+  findByCategoryId(categoryId: number, page: number, size: number): Promise<Page<Collection>> {
+    return axios
+      .get<any>(API_URL + '/collections', {
+        params: {
+          category_id: categoryId,
+          page,
+          size,
+        },
+      })
+      .then((response) => ({
+        items: response.data.items.map((collection: any) => this.mapper.fromApi(collection)),
+        currentPage: response.data['current_page'],
+        totalPages: response.data['total_pages'],
+        totalItems: response.data['total_items'],
       }));
   }
 }
