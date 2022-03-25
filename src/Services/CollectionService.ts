@@ -6,9 +6,7 @@ import Page from '../Models/Page';
 import authHeader from './AuthHeader';
 
 const API_URL =
-  process.env.NODE_ENV === 'production'
-    ? 'https://dcuo-coll-checklist-backend.herokuapp.com/api/v1'
-    : 'http://localhost:8080/api/v1';
+  process.env.NODE_ENV === 'production' ? 'https://api.dcuo-collchecklist.com/api/v1' : 'http://localhost:8080/api/v1';
 
 class CollectionService {
   private mapper: CollectionMappingService;
