@@ -15,6 +15,7 @@ import { Search } from './Pages/Search/Search';
 import { Category } from './Pages/Category/Category';
 import { Collection } from './Pages/Collection/Collection';
 import { Progresses } from './Pages/Progresses/Progresses';
+import { Progress } from './Pages/Progress/Progress';
 
 const logOut = () => {
   AuthService.logout();
@@ -55,6 +56,7 @@ const Wrapper = () => {
           <Route path="collections/:categoryId" element={<Category />} />
           <Route path="collections/:categoryId/:collectionId" element={<Collection />} />
           <Route path="progresses" element={user ? <Progresses /> : <Navigate to="/" />} />
+          <Route path="progresses/:collectionProgressId" element={user ? <Progress /> : <Navigate to="/" />} />
         </Route>
         <Route path="login" element={user ? <Navigate to="/" /> : <Login />} />
         <Route path="signup" element={user ? <Navigate to="/" /> : <Signup />} />

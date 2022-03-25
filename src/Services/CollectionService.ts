@@ -17,6 +17,28 @@ class CollectionService {
     this.mapper = new CollectionMappingService();
   }
 
+  deleteCollectionProgress(id: number): Promise<void> {
+    return axios.delete(API_URL + '/collection-progresses/' + id, {
+      headers: authHeader(),
+    });
+  }
+
+  updateCollectionProgress(id: number, collectionParts: number[]): Promise<CollectionProgress> {
+    return axios
+      .put(API_URL + '/collection-progresses/' + id, collectionParts, {
+        headers: authHeader(),
+      })
+      .then((response) => this.mapper.collectionProgressFromApi(response.data));
+  }
+
+  findCollectionProgressById(id: number): Promise<CollectionProgress> {
+    return axios
+      .get(API_URL + '/collection-progresses/' + id, {
+        headers: authHeader(),
+      })
+      .then((response) => this.mapper.collectionProgressFromApi(response.data));
+  }
+
   findCollectionProgressesByCollectionNameContaining(collectionName: string): Promise<CollectionProgress[]> {
     return axios
       .get(API_URL + '/collection-progresses', {
