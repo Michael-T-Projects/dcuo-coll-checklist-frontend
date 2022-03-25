@@ -17,6 +17,29 @@ class CollectionService {
     this.mapper = new CollectionMappingService();
   }
 
+  findCollectionProgressesByCollectionNameContaining(collectionName: string): Promise<CollectionProgress[]> {
+    return axios
+      .get(API_URL + '/collection-progresses', {
+        params: {
+          collection_name: collectionName,
+        },
+        headers: authHeader(),
+      })
+      .then((response) =>
+        response.data.map((collectionProgress: any) => this.mapper.collectionProgressFromApi(collectionProgress)),
+      );
+  }
+
+  findCollectionProgresses(): Promise<CollectionProgress[]> {
+    return axios
+      .get(API_URL + '/collection-progresses', {
+        headers: authHeader(),
+      })
+      .then((response) =>
+        response.data.map((collectionProgress: any) => this.mapper.collectionProgressFromApi(collectionProgress)),
+      );
+  }
+
   saveProgress(userId: number, collectionId: number): Promise<CollectionProgress> {
     return axios
       .post(
