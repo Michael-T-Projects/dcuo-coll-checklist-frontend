@@ -54,7 +54,7 @@ const Wrapper = () => {
           <Route path="search" element={<Search />} />
           <Route path="collections/:categoryId" element={<Category />} />
           <Route path="collections/:categoryId/:collectionId" element={<Collection />} />
-          <Route path="progresses" element={<Progresses />} />
+          <Route path="progresses" element={user ? <Progresses /> : <Navigate to="/" />} />
         </Route>
         <Route path="login" element={user ? <Navigate to="/" /> : <Login />} />
         <Route path="signup" element={user ? <Navigate to="/" /> : <Signup />} />
