@@ -51,7 +51,7 @@ export const Category = () => {
             {collections.items.map((collection) => (
               <tr
                 key={collection.id}
-                onClick={() => navigate('/collections/' + collection.category.id + '/' + category.id)}
+                onClick={() => navigate('/collections/' + collection.category.id + '/' + collection.id)}
               >
                 <td>{collection.name}</td>
                 {hasLocation && <td>{collection.location}</td>}
