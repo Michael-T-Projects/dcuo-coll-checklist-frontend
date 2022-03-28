@@ -23,6 +23,11 @@ export const Header = () => {
             <Nav.Link as={Link} to="/collections">
               Collections
             </Nav.Link>
+            {currentUser && currentUser.roles.includes('ADMIN') && (
+              <Nav.Link as={Link} to="/admin">
+                Add Collection
+              </Nav.Link>
+            )}
           </Nav>
           {currentUser ? (
             <>
