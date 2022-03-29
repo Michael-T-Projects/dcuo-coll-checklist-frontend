@@ -77,7 +77,7 @@ export const AddCollection = () => {
                 type="text"
                 placeholder="Name*"
                 required
-                {...register('name', { required: true, minLength: 2, maxLength: 30 })}
+                {...register('name', { required: true, minLength: 2, maxLength: 100 })}
               />
             </FloatingLabel>
           </Form.Group>
@@ -88,7 +88,7 @@ export const AddCollection = () => {
                 type="text"
                 placeholder="Reward*"
                 required
-                {...register('reward', { required: true, minLength: 2, maxLength: 30 })}
+                {...register('reward', { required: true, minLength: 2, maxLength: 100 })}
               />
             </FloatingLabel>
           </Form.Group>
