@@ -15,6 +15,14 @@ class CollectionService {
     this.mapper = new CollectionMappingService();
   }
 
+  saveCollection(collection: any): Promise<Collection> {
+    return axios
+      .post(API_URL + '/collections', collection, {
+        headers: authHeader(),
+      })
+      .then((response) => this.mapper.fromApi(response.data));
+  }
+
   deleteCollectionProgress(id: number): Promise<void> {
     return axios.delete(API_URL + '/collection-progresses/' + id, {
       headers: authHeader(),
