@@ -37,6 +37,9 @@ const Wrapper = () => {
           setUser(data);
           sessionStorage.setItem('user', JSON.stringify(data));
         })
+        .catch(() => {
+          sessionStorage.removeItem('user');
+        })
         .then(() => {
           setIsLoading(false);
         });
