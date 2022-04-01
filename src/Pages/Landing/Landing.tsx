@@ -37,7 +37,7 @@ export const Landing = () => {
       {collections && (
         <>
           <h1>Explore Collections</h1>
-          <Table striped bordered hover>
+          <Table striped bordered hover responsive>
             <thead>
               <tr>
                 <th>Category</th>

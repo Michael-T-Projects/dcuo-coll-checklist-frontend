@@ -104,7 +104,7 @@ export const Progress = () => {
           <Row>
             <Col lg={6}>
               <h2>Completed Parts</h2>
-              <Table striped bordered>
+              <Table striped bordered responsive>
                 <tbody>
                   {collectionProgress.completedCollectionParts.map((collectionPart) => (
                     <tr key={collectionPart.id}>
@@ -121,7 +121,7 @@ export const Progress = () => {
             </Col>
             <Col lg={6}>
               <h2>All Collection Parts</h2>
-              <Table striped bordered>
+              <Table striped bordered responsive>
                 <tbody>
                   {collectionProgress.collection.collectionParts.map((collectionPart) => (
                     <tr key={collectionPart.id}>

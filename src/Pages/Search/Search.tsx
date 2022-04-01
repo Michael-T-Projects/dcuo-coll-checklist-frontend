@@ -43,7 +43,7 @@ export const Search = () => {
       {collections && (
         <>
           <p>{collections.totalItems} results</p>
-          <Table striped bordered hover>
+          <Table striped bordered hover responsive>
             <thead>
               <tr>
                 <td>Category</td>

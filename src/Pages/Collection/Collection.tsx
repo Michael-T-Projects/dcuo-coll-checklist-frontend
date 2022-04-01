@@ -85,7 +85,7 @@ export const Collection = () => {
           </Button>
         </Col>
       </Row>
-      <Table striped bordered>
+      <Table striped bordered responsive>
         <tbody>
           {collection.collectionParts.map((collectionPart) => (
             <tr key={collectionPart.id}>
