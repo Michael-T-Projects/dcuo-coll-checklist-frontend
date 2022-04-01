@@ -110,7 +110,7 @@ export const Collections = () => {
           <Link to={'/collections/' + tableEntry.category.id}>
             <h3>{tableEntry.category.name}</h3>
           </Link>
-          <Table striped bordered hover>
+          <Table striped bordered hover responsive>
             <thead>
               <tr>
                 <th>Name</th>

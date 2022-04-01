@@ -37,7 +37,7 @@ export const Category = () => {
     <>
       <h1>{category.name}</h1>
       {collections && (
-        <Table striped bordered hover>
+        <Table striped bordered hover responsive>
           <thead>
             <tr>
               <th>Name</th>
