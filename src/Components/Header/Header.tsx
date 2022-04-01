@@ -12,7 +12,7 @@ export const Header = () => {
   }, []);
 
   return (
-    <Navbar bg="primary" variant="dark">
+    <Navbar bg="primary" variant="dark" collapseOnSelect expand="lg">
       <Container>
         <Navbar.Brand as={Link} to="/">
           DCUO CollChecklist
